@@ -59,7 +59,7 @@
 
         .favorite-product-price {
           width: 100px;
-          margin-right: 193px;
+          //margin-right: 193px;
           font-family: 'Montserrat', sans-serif;
           font-weight: 600;
           font-style: normal;
@@ -69,6 +69,17 @@
 
         .favorite-product-action button {
           width: 160px;
+          margin-left: 193px;
+        }
+
+        .favorite-product-action-in-cart {
+          display: flex;
+          align-items: center;
+
+          .button-in-cart-favorite {
+            margin-left: 20px;
+            width: 160px;
+          }
         }
 
         .favorite-product-remove {
