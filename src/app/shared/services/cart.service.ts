@@ -42,6 +42,17 @@ export class CartService {
 
   }
 
+  // getCartCount(): Observable<{count: number} | DefaultResponseType> {
+  //   return this.http.get<{count: number} | DefaultResponseType>(environment.api + 'cart/count', {withCredentials: true})
+  //     .pipe(
+  //       tap(data => {
+  //         if (!data.hasOwnProperty("error")) {
+  //           this.setCount((data as {count: number}).count);
+  //         }
+  //       })
+  //     );
+  // }
+
   getCartCount(): Observable<{count: number} | DefaultResponseType> {
     return this.http.get<{count: number} | DefaultResponseType>(environment.api + 'cart/count', {withCredentials: true})
       .pipe(

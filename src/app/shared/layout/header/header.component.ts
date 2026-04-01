@@ -54,7 +54,21 @@ export class HeaderComponent implements OnInit {
 
     this.authService.isLogged$.subscribe((isLoggedIn: boolean) => {
       this.isLogged = isLoggedIn;
+
+      if (isLoggedIn) {
+        this.cartService.getCartCount()
+          .subscribe((data: {count: number} | DefaultResponseType) => {
+            if ((data as DefaultResponseType).error !== undefined) {
+              return;
+            }
+            this.count = (data as {count: number}).count;
+          });
+      } else {
+        this.count = 0;
+      }
     })
+
+
 
     this.cartService.getCartCount()
       .subscribe((data: {count: number} | DefaultResponseType) => {
