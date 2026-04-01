@@ -28,9 +28,11 @@ export class ActiveParamsUtil {
       activeParams.sort = params['sort'];
     }
 
-    if (params.hasOwnProperty('page')) {
-      activeParams.page = +params['page'];
-    }
+    // if (params.hasOwnProperty('page')) {
+    //   activeParams.page = +params['page'];
+    // }
+
+    activeParams.page = params.hasOwnProperty('page') ? +params['page'] : 1;
     return activeParams;
   }
 }

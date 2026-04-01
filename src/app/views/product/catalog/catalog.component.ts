@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
 import {ProductService} from "../../../shared/services/product.service";
 import {ProductType} from "../../../../types/product.type";
 import {CategoryService} from "../../../shared/services/category.service";
@@ -39,7 +39,8 @@ export class CatalogComponent implements OnInit {
 
   constructor(private productService: ProductService, private categoryService: CategoryService,
               private activatedRoute: ActivatedRoute, private router: Router, private cartService: CartService,
-              private favoriteService: FavoriteService, private authService: AuthService) { }
+              private favoriteService: FavoriteService, private authService: AuthService,
+              private elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this.cartService.getCart()
@@ -126,7 +127,7 @@ export class CatalogComponent implements OnInit {
             this.productService.getProducts(this.activeParams)
               .subscribe(data => {
                 this.pages = [];
-                for (let i = 1; i<= data.pages; i++) {
+                for (let i = 1; i <= data.pages; i++) {
                   this.pages.push(i);
                 }
 
@@ -205,6 +206,18 @@ export class CatalogComponent implements OnInit {
       this.router.navigate(['/catalog'], {
         queryParams: this.activeParams,
       });
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    if (this.sortingOpen) {
+      const target = event.target as HTMLElement;
+      const sortingElement = this.elementRef.nativeElement.querySelector('.catalog-sorting');
+
+      if (sortingElement && !sortingElement.contains(target)) {
+        this.sortingOpen = false;
+      }
     }
   }
 
